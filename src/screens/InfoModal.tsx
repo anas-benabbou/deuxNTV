@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, Modal, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
 import styles from "../css/InfoModalCSS";
 import { useDispatch, useSelector } from 'react-redux';
 import { addMovie, deleteMovie } from '../redux/actions/movieActions';
@@ -9,7 +10,7 @@ import { Movie } from "../models/movieType";
 
 const fallbackUri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR60eAZ44Q3dBj9M7XYy20d4QXIse1iHIt79KawEtR_BBV_1mb7c1xJuK4Aybal4a68HBI&usqp=CAU';
 
-const InfoModal = ({ isVisible, movie, onClose }: { isVisible: boolean, movie: any, onClose: () => void }) => {
+const InfoModal = ({ navigation, isVisible, movie, onClose }: { navigation: any, isVisible: boolean, movie: any, onClose: () => void }) => {
   const dispatch = useDispatch();
   const myMoviesList = useSelector((state: RootState) => state.movies.myMoviesList);
   const isMovieInList = movie ? myMoviesList.some((m: Movie) => m.id === movie.id) : false;
@@ -24,10 +25,11 @@ const InfoModal = ({ isVisible, movie, onClose }: { isVisible: boolean, movie: a
 
   if (!movie) return null;
 
-  // Calculate modal dimensions based on device width and height
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-  const modalWidth = screenWidth * 0.8; // 80% of screen width
-  const modalHeight = screenHeight * 0.8; // 80% of screen height
+  const modalWidth = screenWidth * 0.8;
+  const modalHeight = screenHeight * 0.8;
+
+
 
   return (
     <Modal
@@ -44,10 +46,14 @@ const InfoModal = ({ isVisible, movie, onClose }: { isVisible: boolean, movie: a
               style={styles.modalPoster}
             />
             <Text style={styles.modalTitle}>{movie.titleText.text}</Text>
-            <TouchableOpacity style={styles.playButton2}>
+            <TouchableOpacity style={styles.playButton2} onPress={() => {
+              onClose();  
+              navigation.navigate('VideoScreen');
+            }}>
               <Icon name="play" size={16} color="black" />
               <Text style={styles.playButtonText2}>Play</Text>
             </TouchableOpacity>
+
             {isMovieInList ? (
               <TouchableOpacity style={styles.removeFromMyListButton} onPress={() => removeMovieFromMyList(movie)}>
                 <Icon name="minus" size={16} color="white" />

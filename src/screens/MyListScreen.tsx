@@ -10,7 +10,7 @@ import MovieModal from './InfoModal';
 
 const fallbackUri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR60eAZ44Q3dBj9M7XYy20d4QXIse1iHIt79KawEtR_BBV_1mb7c1xJuK4Aybal4a68HBI&usqp=CAU';
 
-const MyListScreen = () => {
+const MyListScreen = ({ navigation }: { navigation: any }) => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const MyListScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Movie List</Text>
+      <Text style={styles.title}>My Movies List</Text>
       <FlatList
         data={myMoviesList}
         keyExtractor={(item: Movie) => item.id}
@@ -60,6 +60,7 @@ const MyListScreen = () => {
       />
 
       <MovieModal
+        navigation={navigation}
         isVisible={isModalVisible}
         movie={selectedMovie}
         onClose={closeModal}

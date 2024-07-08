@@ -3,12 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ActivityIndic
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from '../css/SearchScreenCSS';
-import { ScrollView } from 'react-native-gesture-handler';
 import MovieModal from './InfoModal'; 
 
 const apikey = 'e270600a55msh3165999218252c2p1390cajsnb0322d294db2';
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }: { navigation: any }) => {
   const [genres, setGenres] = useState<string[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<string>('');
   const [showAllGenres, setShowAllGenres] = useState<boolean>(false);
@@ -51,7 +50,7 @@ const SearchScreen = () => {
     const options = {
       method: 'GET',
       url: 'https://moviesdatabase.p.rapidapi.com/titles',
-      params: { genre, limit: '28', page: page.toString(), info: 'base_info' },
+      params: { genre, limit: '28', page: page.toString(), info: 'base_info', year : 2023 },
       headers: {
         'x-rapidapi-key': apikey,
         'x-rapidapi-host': 'moviesdatabase.p.rapidapi.com',
@@ -193,6 +192,7 @@ const SearchScreen = () => {
         }
       />
       <MovieModal
+        navigation={navigation}
         isVisible={isModalVisible}
         movie={selectedMovie}
         onClose={closeModal}

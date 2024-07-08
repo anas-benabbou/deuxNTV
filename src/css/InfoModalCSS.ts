@@ -111,6 +111,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    videoPlayer: {
+        width: '100%',
+        height: 200,
+        marginTop: 10,
+    },
+    videoContainer: {
+        marginTop: 20,
+    },
+    closeVideoButton: {
+        backgroundColor: '#E50914',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+    },
+    closeVideoButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
 
 });
 

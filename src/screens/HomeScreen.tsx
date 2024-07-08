@@ -193,7 +193,9 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                             <Icon name="plus" size={16} color="white" />
                             <Text style={styles.buttonText}>My List</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.playButton}>
+                        <TouchableOpacity style={styles.playButton} onPress={() => {
+                            navigation.navigate('VideoScreen');
+                        }}>
                             <Icon name="play" size={16} color="white" />
                             <Text style={styles.buttonText}>Play</Text>
                         </TouchableOpacity>
@@ -254,10 +256,12 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
             </View>
 
             <MovieModal
+                navigation={navigation}
                 isVisible={isModalVisible}
                 movie={selectedMovie}
                 onClose={closeModal}
             />
+
 
         </ScrollView>
     );
